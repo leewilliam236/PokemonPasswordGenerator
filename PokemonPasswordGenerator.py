@@ -12,9 +12,13 @@ try:
     file.write(soup.prettify())
     file.close()
 
-    # # Get the pokemon names from the HTML file and export into an html file.
+    # Get the pokemon names from the HTML file and put it in a list.
     pokedexList = []
 
+    '''
+    for loop will go through all the links in the HTML file and check if the link has a title attribute and if it contains 
+    '(Pokémon)' in it. If it does, it will add the title to the pokedexList
+    '''
     for link in soup.find_all('a'):
         if link.get('title') is not None and '(Pokémon)' in link.get('title') and link.parent.name == 'td':
             pokedexList.append(str(link.get('title')).rstrip('(Pokémon)'))
@@ -22,9 +26,11 @@ try:
     # Removes duplicates from the list.
     pokedexList = list(dict.fromkeys(pokedexList))
 
+    # Puts list an dataframe and adds an index to it.
     pokedex = pd.DataFrame(pokedexList, columns=['Pokémon'])
     pokedex.index += 1  # Start index at 1 instead of 0
 
+    # Generates a random password using a random Pokémon name and a random number.
     password = pokedex["Pokémon"][random.randint(1, len(pokedex))]
     print(f'{password}{random.randint(1, len(pokedex))}')
 
