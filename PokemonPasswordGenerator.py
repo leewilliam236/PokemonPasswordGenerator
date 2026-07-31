@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import pandas as pd, requests
+import pandas as pd, requests, random
 
 # NOTE: If you are using a VPN, turn it off, as it may block the request to the website.
 
@@ -25,8 +25,8 @@ try:
     pokedex = pd.DataFrame(pokedexList, columns=['Pokémon'])
     pokedex.index += 1  # Start index at 1 instead of 0
 
-    # Use HTML file to then generate a pd.Series object.
-    pokedex.to_excel("pokedex.xlsx", index=False)
+    password = pokedex["Pokémon"][random.randint(1, len(pokedex))]
+    print(f'{password}{random.randint(1, len(pokedex))}')
 
 except Exception as e:
     print(f"Error occurred while writing to file: {e}")
