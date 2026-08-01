@@ -1,10 +1,14 @@
 from bs4 import BeautifulSoup
-import pandas as pd, requests, random
+import pandas as pd, requests, random, tkinter as tk
 
 # NOTE: If you are using a VPN, turn it off, as it may block the request to the website.
 
 try:
     r = requests.get("https://bulbapedia.bulbagarden.net/wiki/List_of_Pokémon_by_National_Pokédex_number")
+
+    if r.status_code == 403:
+        print("Access denied. Please check your internet connection or turn off your VPN.")
+        exit()
 
     # Open the file in write mode with UTF-8 encoding
     file = open("pokemon.html", "w", encoding="utf-8")
@@ -21,7 +25,7 @@ try:
     '''
     for link in soup.find_all('a'):
         if link.get('title') is not None and '(Pokémon)' in link.get('title') and link.parent.name == 'td':
-            pokedexList.append(str(link.get('title')).rstrip('(Pokémon)'))
+            pokedexList.append(str(link.get('title')).rstrip(' (Pokémon)'))
 
     # Removes duplicates from the list.
     pokedexList = list(dict.fromkeys(pokedexList))
