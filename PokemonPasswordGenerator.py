@@ -35,7 +35,8 @@ try:
     pokedex.index += 1  # Start index at 1 instead of 0
 
     # Generates a random password using a random Pokémon name and a random number.
-    password = pokedex["Pokémon"][random.randint(1, len(pokedex))]
+    password = pokedex["Pokémon"][random.randint(1, len(pokedex))
+symbols = '+×÷=/_<>[]!@#$%^&*()-:;,?`~\|{}€£¥₩°•○●□■♤♡◇♧☆▪︎¤《》¡¿'
     print(f'{password}{random.randint(1, len(pokedex))}')
 
 except Exception as e:
